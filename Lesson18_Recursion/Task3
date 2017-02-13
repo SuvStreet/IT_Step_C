@@ -1,0 +1,27 @@
+// Описать рекурсивную функцию degree5(N), которая вычисляет, какой степенью числа 5 является натуральное число N.
+// Если N не степень пяти, функция должна вернуть число -1.
+
+#include<iostream>
+using namespace std;
+
+int degree5(int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << degree5(125) << "\n\n";
+	return 0;
+}
+
+int degree5(int N)
+{
+	int k;
+	if (N == 1) return 0;
+	else if (N % 5 != 0) return -1;
+	else
+	{
+		k = degree5(N / 5);
+		if (k == -1) return -1;
+		else return (k + 1);
+	}
+}
