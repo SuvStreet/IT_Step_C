@@ -1,0 +1,25 @@
+// Рекурсивно описать функцию maxdig(N), которая находит наибольшую цифру в десятичной записи неотрицательного целого числа N
+
+#include<iostream>
+using namespace std;
+
+int maxdig(int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << maxdig(69543) << "\n\n";
+	return 0;
+}
+
+int maxdig(int N)
+{
+	int max;
+	if (N / 10 < 1) return N;
+	else
+		max = maxdig(N / 10);
+	if(max > N % 10)
+		return max;
+	else
+		return N % 10;
+}
