@@ -1,0 +1,42 @@
+// Рекурсивно описать функцию Search(A,size,key), определяющую, входит ли целое число key в упорядоченный по возрастанию массив  A типа int.
+
+#include <iostream>
+
+using namespace std;
+
+int Search(int a[], int size, int key);
+void massPrint(int mass[], int size);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	const int size = 10;
+	int a[size]{1, 2, 3, 4, 5, 7, 8, 9, 10, 11};
+	massPrint(a, size);
+	int key = 2;
+	cout << "key = " << key << endl;
+	if (a[Search(a, size, key)] == key) cout << "ID = " << Search(a, size, key) << "\n\n";
+	else cout << "Число " << key << " не входит в массив.\n\n";
+	return 0;
+}
+
+int Search(int a[], int size, int key)
+{
+	int count = 0;
+	if (size == 0) return 0;
+	else
+	{
+		count = Search(a, size - 1, key);
+		if (a[count] < key) return count + 1;
+		else return count;
+	}
+}
+
+void massPrint(int mass[], int size)
+{
+	for (int i = 0, j = 0; i < size; i++, j++)
+	{
+		cout << "A[" << j << "] = " << mass[i] << "\n";
+	}
+	cout << endl;
+}
