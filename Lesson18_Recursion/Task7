@@ -1,0 +1,22 @@
+// Рекурсивно описать функцию equal(n, s), где n и s неотрицательные целые числа, которая проверяет,
+// совпадает ли сумма цифр в десятичной записи числа n со значением s.
+
+#include<iostream>
+using namespace std;
+
+bool equal(int, int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	if (equal(1589, 22) == 1) cout << "true\n\n";
+	else cout << "false\n\n";
+	return 0;
+}
+
+bool equal(int n, int s)
+{
+	if (s < 0) return s = false;
+	else if (n < 10) return n == s;
+	else return equal(n / 10, s - n % 10);
+}
