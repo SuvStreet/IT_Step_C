@@ -1,0 +1,31 @@
+Рекурсивно описать функцию divs(n) для подсчета количества всех делителей целого числа n (n>1), без учета делителей 1 и n.
+
+#include<iostream>
+
+using namespace std;
+
+int divs(int);
+int divs1(int, int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << divs(18);
+	return 0;
+}
+
+int divs(int num)
+{
+	return divs1(2, num);
+}
+int divs1(int k, int num)
+{
+	int x = 0;
+	if (k > num / 2) return 0;
+	else 
+	{
+		x = divs1(k + 1, num);
+		if (num % k == 0) return x + 1;
+		else return x;
+	}
+}
