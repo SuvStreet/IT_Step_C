@@ -1,0 +1,20 @@
+// Не используя операции умножения и деления, рекурсивно описать функцию Mod(a,b) от целых чисел a и b (a≥0, b>0),
+// которая вычисляет остаток от деления a на b.
+
+#include<iostream>
+using namespace std;
+
+unsigned  mod(int, int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << mod(12, 5) << "\n\n";
+	return 0;
+}
+
+unsigned mod(int a, int b)
+{
+	if (a > b)return mod(a - b, b);
+	else return a;
+}
