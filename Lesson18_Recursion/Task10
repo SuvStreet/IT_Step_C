@@ -1,0 +1,20 @@
+// Рекурсивно описать процедуру RevPrint(N), которая печатает в обратном порядке цифры десятичной записи целого неотрицательного числа N.
+
+#include<iostream>
+using namespace std;
+
+int RevPrint(int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << RevPrint(54321) << endl;
+	return 0;
+}
+int RevPrint(int n)
+{
+	int f;
+	if (n < 10) return n;
+	else cout << n % 10;
+	return f = RevPrint(n / 10);
+}
