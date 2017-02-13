@@ -1,0 +1,23 @@
+// Рекурсивно описать функцию Head3(n), которая вычисляет число, получаемое приписыванием
+// слева цифры 3 к десятичной записи целого неотрицательного числа n.
+
+#include<iostream>
+
+using namespace std;
+
+int Head3(int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << Head3(58) << "\n\n";
+	return 0;
+}
+
+int Head3(int n)
+{
+	int head;
+	if (n < 10) return 30 + n;
+	else return head = Head3(n / 10) * 10 + n % 10;
+	return head;
+}
