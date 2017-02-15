@@ -1,0 +1,32 @@
+// Создать массив из 10 целых чисел. Заполнить массив случайным образом в диапазоне от -44 до 76.
+// Пользуясь указателем на массив целых чисел, посчитать произведение элементов массива.
+
+#include<iostream>
+#include<ctime>
+
+using namespace std;
+
+void print(int*, int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	int masint[10];
+	int *ptri;
+	ptri = masint;
+	print(ptri, 10);
+	return 0;
+}
+
+void print(int *ptri, int size)
+{
+	srand((unsigned)time(0));
+	long long pr = 1;
+	for (int ptri = 0, j = 0; j < size; ptri++, j++)
+	{
+		ptri = rand() % (76 + 44 + 1) - 44;
+		cout << "A[" << j << "] = " << ptri << endl;
+		pr *= ptri++;
+	}
+	cout << "\nПроизведение элементов массива = " << pr << "\n\n";
+}
