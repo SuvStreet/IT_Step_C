@@ -1,1 +1,14 @@
+// Создать 2 целые переменные и определить «расстояние» между ними в памяти. Расстояние определяется в переменных того же типа.
 
+#include<iostream>
+
+using namespace std;
+
+int main() // Использование операций & и *
+{
+	setlocale(LC_ALL, "Russian");
+	int a = 0, b = 0;
+	int *aptr = &a, *bptr = &b;
+	cout << "Расстояние между типами в памяти " << aptr - bptr << " int-а\n" << endl;
+	return 0;
+}
