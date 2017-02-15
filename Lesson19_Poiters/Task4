@@ -1,0 +1,33 @@
+// Создать массив из 10 целых чисел. Заполнить массив случайным образом в диапазоне от -25 до 35.
+// Пользуясь указателем на массив целых чисел, посчитать сумму элементов массива.
+
+#include<iostream>
+#include<ctime>
+
+using namespace std;
+
+void print(int*, int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	int masint[10];
+	int *ptri;
+	ptri = masint;
+	print(ptri, 10);
+	return 0;
+}
+
+void print(int *ptri, int size)
+{
+
+	srand((unsigned)time(0));
+	int sum = 0;
+	for (int ptri = 0, j = 0; j < size; ptri++, j++)
+	{
+		ptri = rand() % (35 + 25 + 1) - 25;
+		cout << "A[" << j << "] = " << ptri << endl;
+		sum += ptri++;
+	}
+	cout << "\nСумма элементов массива = " << sum << "\n\n";
+}
