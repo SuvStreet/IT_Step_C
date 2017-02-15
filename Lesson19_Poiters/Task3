@@ -1,0 +1,28 @@
+// Дан массив чисел, необходимо ввести в него и вывести из него числа с помощью указателей.
+
+#include<iostream>
+#include<ctime>
+
+using namespace std;
+
+void print(int*, int, int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	int masint[5];
+	int *ptri;
+	ptri = masint;
+	print(ptri, 5, 100);
+	return 0;
+}
+
+void print(int *ptri, int size, int del)
+{
+	srand((unsigned)time(0));
+	for (int ptri = 0, j = 0; j < size; ptri++, j++)
+	{
+		ptri = rand() % del;
+		cout << "A[" << j << "] = " << ptri << endl;
+	}
+}
