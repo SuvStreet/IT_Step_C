@@ -1,0 +1,22 @@
+// Написать функцию, которая принимает два указателя  и возвращает указатель на меньшее число.
+
+#include<iostream>
+
+using namespace std;
+
+void function(int*, int*);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	int a = 2, b = 3;
+	cout << "До:	a = " << a << "	" << "b = " << b << endl;
+	int *aptr = &a, *bptr = &b;
+	function(aptr, bptr);
+	return 0;
+}
+
+void function(int *aptr, int *bptr)
+{
+	cout << "После:	a = " << *aptr - 1 << "	" << "b = " << *bptr - 1 << endl;
+}
