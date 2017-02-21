@@ -1,0 +1,50 @@
+// Написать программу, которая содержит функцию, принимающую в качестве аргумента,
+// указатели на два массива (А и В) и размеры массивов. Функция проверяет,
+// является ли массив В подмножеством массива А и возвращает указатель на начало найденного фрагмента,
+// если элемента нет, возвращает 0.
+
+#include <iostream>
+
+using namespace std;
+
+int *ex2(int *, int *);
+int *ex6(int *, int *, const int*, const int*);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	const int size_a = 10, size_b = 5;
+	int mass1[size_a], mass2[size_b];
+	int *pm1 = mass1, *pm2 = mass2;
+	const int *ps1 = &size_a, *ps2 = &size_b;
+
+	for (int i = 0, j = 0; i < *ps1; i++, j++)
+	{
+		*(pm1 + i) = i;
+		cout << "A[" << j << "] = " << *(pm1 + i) << "\n";
+	}
+	cout << endl;
+	for (int i = 3, j = 0, x = 0; j < *ps2; j++, i++, x++)
+	{
+		*(pm2 + j) = i;
+		cout << "B[" << x << "] = " << *(pm2 + j) << "\n";
+	}
+	cout << endl;
+
+	cout << "Адерс = " << ex6(pm1, pm2, ps1, ps2) << endl;
+	cout << "Номер =  " << *(ex6(pm1, pm2, ps1, ps2)) << endl;
+
+	cout << endl;
+	return 0;
+}
+int *ex6(int *a, int *b, const int *size_a, const int *size_b)
+{
+	for (int i = 0; i < *size_b; i++)
+	{
+		for (int j = 0; j < *size_a - 1; j++)
+		{
+			if (*(b + i) == *(a + j) && *(b + i + 1) == *(a + j + 1)) return a + j;
+		}
+	}
+	return 0;
+}
