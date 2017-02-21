@@ -1,0 +1,78 @@
+// Написать функцию, которая производит двоичный поиск места размещения нового элемента
+// в упорядоченном массиве и возвращает указатель на место включения нового элемента.
+// С помощью данной функции реализовать сортировку вставками.
+
+#include<iostream>
+#include<ctime>
+
+using namespace std;
+
+int* give_memory(int*, int);
+int* free_memory(int*);
+int* bin_search(int*, int, int);
+void sort(int*, int);
+
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	srand((unsigned)time(0));
+	int* ptr = NULL, size;
+	cout << "Введите размер массива = ";
+	cin >> size;
+	ptr = give_memory(ptr, size);
+	for (size_t i = 0, j = 0; i < size; i++, j++)
+	{
+		ptr[i] = rand() % 100;
+		cout << "A[" << j << "] = " << *(ptr + i) << "\n";
+	}
+	cout << endl;
+	sort(ptr, size);
+	for (size_t i = 0, j = 0; i < size; i++, j++)
+	{
+		cout << "B[" << j << "] = " << *(ptr + i) << "\n";
+	}
+	cout << endl;
+	ptr = free_memory(ptr);
+	return 0;
+}
+
+int* give_memory(int *A, int size)
+{
+	A = (int*)malloc(size * sizeof(int));
+	return A;
+}
+
+int* free_memory(int* A)
+{
+	free(A);
+	A = NULL;
+	return A;
+}
+
+int* bin_search(int* A, int size, int key)
+{
+	int right = size, left = 0;
+	while (left < right)
+	{
+		int mid = (left + right) / 2;
+		if (key < A[mid]) right = mid;
+		else left = mid + 1;
+	}
+	return A + right;
+}
+
+void sort(int* A, int size)
+{
+	int* temp;
+	for (int i = 0; i < size; i++)
+	{
+		int p = A[i];
+		temp = bin_search(A, i, p);
+		for (int j = i; A + j != temp; j--)
+		{
+			A[j] = A[j - 1];
+		}
+		*temp = p;
+	}
+}
