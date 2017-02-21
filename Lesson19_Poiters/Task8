@@ -1,0 +1,68 @@
+// Написать функцию, которая находит минимальный элемент массива и возвращает указатель на него.
+// С использованием этой функции реализовать сортировку выбором.
+
+#include<iostream>
+#include<ctime>
+
+using namespace std;
+
+int* give_memory(int*, int);
+int* free_memory(int*);
+int* min(int*, int, int);
+void sort(int*, int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	srand((unsigned)time(0));
+	int* ptr = NULL, size;
+	cout << "Введите размер массива = ";
+	cin >> size;
+	ptr = give_memory(ptr, size);
+	for (size_t i = 0, j = 0; i < size; i++, j++)
+	{
+		ptr[i] = rand() % 100;
+		cout << "A[" << j << "] = " << *(ptr + i) << "\n";
+	}
+	cout << endl;
+	sort(ptr, size);
+	for (size_t i = 0, j = 0; i < size; i++, j++)
+	{
+		cout << "B[" << j << "] = " << *(ptr + i) << "\n";
+	}
+	cout << endl;
+	ptr = free_memory(ptr);
+	return 0;
+}
+
+int* give_memory(int *A, int size)
+{
+	A = (int*)malloc(size * sizeof(int));
+	return A;
+}
+
+int* free_memory(int* A)
+{
+	free(A);
+	A = NULL;
+	return A;
+}
+
+int* min(int *A, int size, int index)
+{
+	int *ptrmin = &A[index];
+	for (int* i = A + index; i < A + size; i++)
+	{
+		if (*i < *ptrmin) ptrmin = i;
+	}
+	return ptrmin;
+}
+
+void sort(int* A, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		int* ptrmin = min(A, size, i);
+		swap(A[i], *ptrmin);
+	}
+}
