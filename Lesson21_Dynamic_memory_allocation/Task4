@@ -1,0 +1,121 @@
+#include<iostream>
+#include<ctime>
+
+using namespace std;
+
+int* give_memory(int*, int);
+int* free_memory(int*);
+void init_array(int*, int);
+void print_array(int*, int, char);
+int *sum(int*, int*, int, int);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	srand((unsigned)time(0));
+	int* A = NULL, M;
+	int* B = NULL, N;
+	int* C = NULL;
+	cout << "Введите размер первого массива А[M] = ";
+	cin >> M;
+	cout << "Введите размер второго массива B[N] = ";
+	cin >> N;
+
+	A = give_memory(A, M);
+	B = give_memory(B, N);
+
+	init_array(A, M);
+	init_array(B, N);
+	cout << endl;
+
+	system("cls");
+
+	print_array(A, M, 'A');
+	cout << endl;
+	print_array(B, N, 'B');
+	cout << endl;
+
+	C = sum(A, B, M, N);
+	cout << endl;
+
+	A = free_memory(A);
+	B = free_memory(A);
+	C = free_memory(C);
+	return 0;
+}
+
+int* give_memory(int *A, int size) // Функция распределения динамической памяти
+{
+	A = (int*)malloc(size * sizeof(int));
+	return A;
+}
+
+int* free_memory(int* A) // Функция удаления динамического массива
+{
+	free(A);
+	A = NULL;
+	return A;
+}
+
+void init_array(int* A, int size) // Функция инициализации динамического массива
+{
+	for (int *i = A; i < A + size; i++)
+	{
+		*i = rand() % 10;
+	}
+}
+
+void print_array(int* A, int size, char simvol) // Функция печати динамического массива
+{
+	for (int i = 0; i < size; i++)
+	{
+		cout << simvol << "[" << i << "] = " << *(A + i) << "\n";
+	}
+}
+
+int *sum(int*A, int*B, int M, int N) // Заполняем третий массив элементами второго и первого массива
+{
+	int M_N = M + N;
+	int *C = NULL;
+	C = give_memory(C, M_N);
+
+	int counter = 0, place = 0;
+	for (int i = 0; i < M; i++)
+	{
+		counter = 0;
+		for (int j = 0; j < M; j++)
+		if (A[i] == A[j] && i != j) counter++;
+
+		if (counter == 0)
+		{
+			C[place] = A[i];
+			place++;
+		}
+	}
+	int *D = NULL;
+	D = give_memory(D, place);
+
+	counter = 0;
+	int id = 0;
+	for (int i = 0; i < place; i++)
+	{
+		counter = 0;
+		for (int j = 0; j < N; j++)
+		{
+			if (C[i] == B[j]) counter++;
+		}
+		if (counter == 0)
+		{
+			D[id] = C[i];
+			id++;
+		}
+	}
+	C = give_memory(C, id);
+	for (int i = 0; i < id; i++)
+	{
+		C[i] = D[i];
+	}
+	print_array(C, id, 'C');
+	return C;
+	D = free_memory(D);
+}
