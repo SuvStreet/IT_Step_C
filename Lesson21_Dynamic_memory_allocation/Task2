@@ -1,0 +1,95 @@
+// Даны два массива: А[M] и B[N] (M и N вводятся с клавиатуры).
+// Необходимо создать третий массив минимально возможного размера, в котором нужно собрать элементы обоих массивов. 
+
+#include<iostream>
+#include<ctime>
+
+using namespace std;
+
+int* give_memory(int*, int);
+int* free_memory(int*);
+void init_array(int*, int);
+void print_array(int*, int, char);
+int *sum(int*, int*, int, int);
+
+
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	srand((unsigned)time(0));
+	int* A = NULL, M;
+	int* B = NULL, N;
+	int* C = NULL;
+	cout << "Введите размер первого массива А[M] = ";
+	cin >> M;
+	cout << "Введите размер второго массива B[N] = ";
+	cin >> N;
+
+	A = give_memory(A, M);
+	B = give_memory(B, N);
+
+	init_array(A, M);
+	init_array(B, N);
+	cout << endl;
+
+	system("cls");
+
+	print_array(A, M, 'A');
+	cout << endl;
+	print_array(B, N, 'B');
+	cout << endl;
+
+	C = sum(A, B, M, N);
+	cout << endl;
+
+	A = free_memory(A);
+	B = free_memory(A);
+	C = free_memory(C);
+	return 0;
+}
+
+int* give_memory(int *A, int size) // Функция распределения динамической памяти
+{
+	A = (int*)malloc(size * sizeof(int));
+	return A;
+}
+
+int* free_memory(int* A) // Функция удаления динамического массива
+{
+	free(A);
+	A = NULL;
+	return A;
+}
+
+void init_array(int* A, int size) // Функция инициализации динамического массива
+{
+	for (int *i = A; i < A + size; i++)
+	{
+		*i = rand() % 100;
+	}
+}
+
+void print_array(int* A, int size, char simvol) // Функция печати динамического массива
+{
+	for (int i = 0; i < size; i++)
+	{
+		cout << simvol << "[" << i << "] = " << *(A + i) << "\n";
+	}
+}
+
+int *sum(int*A, int*B, int M, int N) // Заполняем третий массив элементами второго и первого массива
+{
+	int M_N = M + N;
+	int *C = NULL;
+	C = give_memory(C, M_N);
+
+	for (int i = 0; i < M; i++)
+		C[i] = A[i];
+
+	for (int i = M, j = 0; i < M_N; i++, j++)
+		C[i] = B[j];
+
+	print_array(C, M_N, 'C');
+	return C;
+}
