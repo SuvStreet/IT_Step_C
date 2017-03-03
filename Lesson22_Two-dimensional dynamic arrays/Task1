@@ -1,0 +1,117 @@
+// Объявить и заполнить двумерный динамический массив случайными числами от - 10 до 15.
+// Вывести его на экран. Для заполнения и показа на экран написать отдельные функции.
+// Количество строк и столбцов выбирает пользователь.
+// Найти произведение этих двухмерных массивов.
+// (Матрицы можно перемножить, если их размерность удовлетворяет следующим условиям (A_(n*m)*B_(m*l) = C_(n*l)).
+
+#include <iostream>
+#include <stdlib.h>
+#include <ctime>
+
+using namespace std;
+
+int** give_Memory_Calloc(int**, int, int); // заполнение массива нулями
+int** free_Memory(int**, int); // освобождения памяти от массива
+void init_array(int**, int, int); // инициализация массива
+void print_array(int**, int, int, char); // вывод на печать массива
+int** arrayMult(int**, int, int, int **, int, int); // умножение массива
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	srand((unsigned)time(0));
+
+	cout << "Программа, Объявления и заполния двумерного динамического массива случайными числами от - 10 до 15\n\n"; // название программы
+
+	int **array1 = NULL;
+	int **array2 = NULL;
+
+	int rows1;
+	cout << "Введите количество строк первого массива = ";
+	cin >> rows1;
+	int colls1;
+	cout << "Введите количество столбцов первого массива = ";
+	cin >> colls1;
+	cout << endl;
+
+	int rows2;
+	cout << "Введите количество строк второго массива = ";
+	cin >> rows2;
+	int colls2;
+	cout << "Введите количество столбцов второго массива = ";
+	cin >> colls2;
+	cout << endl;
+
+	array1 = give_Memory_Calloc(array1, rows1, colls1);
+	array2 = give_Memory_Calloc(array2, rows2, colls2);
+
+	init_array(array1, rows1, colls1);
+	init_array(array2, rows2, colls2);
+
+	print_array(array1, rows1, colls1, 'A');
+	cout << endl;
+	print_array(array2, rows2, colls2, 'B');
+	cout << endl;
+
+	int **array3 = arrayMult(array1, rows1, colls1, array2, rows2, colls2);
+	print_array(array3, rows1, colls2, 'C');
+	cout << endl;
+
+	free_Memory(array1, rows1);
+	free_Memory(array2, rows2);
+	free_Memory(array3, rows1);
+
+	return 0;
+}
+
+int **arrayMult(int **a1, int rows1, int colls1, int **a2, int rows2, int colls2) // функция умножение массива
+{
+	int **array = NULL;
+	array = give_Memory_Calloc(array, rows1, colls2);
+
+	if (rows2 != colls1) cout << "Массивы не могут быть умножены.\nСтолбцы первого массива должны быть равны строкам второго массива.\n\n";
+	else
+	{
+		for (int i = 0; i < rows1; i++)
+		for (int k = 0; k < colls1; k++)
+		for (int j = 0; j < colls2; j++)
+			array[i][j] += a1[i][k] * a2[k][j];
+	}
+	return array;
+}
+
+void print_array(int **a, int rows, int colls, char simvol) // функция печати массива
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < colls; j++)
+			cout << simvol << "[" << i << "][" << j << "] = " << a[i][j] << "\t";
+		cout << endl;
+	}
+}
+
+void init_array(int **a, int rows, int colls) // функция инициализации массива
+{
+	for (int i = 0; i < rows; i++)
+	for (int j = 0; j < colls; j++)
+		a[i][j] = rand() % 25 - 10;
+}
+
+int **free_Memory(int **a, int rows) // функция освобождение памяти от массива
+{
+	for (int i = 0; i < rows; i++)
+		free(a[i]);
+	free(a);
+
+	return a = NULL;
+}
+
+int **give_Memory_Calloc(int **a, int rows, int colls) // функция заполнения массива нулями
+{
+	a = (int**)calloc(rows, sizeof(int*));
+
+	for (int i = 0; i < rows; i++)
+		a[i] = (int*)calloc(colls, sizeof(int));
+
+	return a;
+}
