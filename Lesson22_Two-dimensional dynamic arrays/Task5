@@ -1,0 +1,101 @@
+// Создать функцию, удаляющую заданный столбец двумерного динамического массива.
+
+#include <iostream>
+#include <stdlib.h>
+#include <ctime>
+
+using namespace std;
+
+int** give_Memory_Calloc(int**, int, int); // заполнение массива нулями
+int** free_Memory(int**, int); // освобождения памяти от массива
+void init_array(int**, int, int); // инициализация массива
+void print_array(int**, int, int, char); // вывод на печать массива
+int **addRow(int **, int, int, int); // удаление столбца в указанной позиции
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	srand((unsigned)time(0));
+
+	cout << "Программа, удаляющая столбец в двумерном динамическом массиве в указанной позиции.\n\n"; // название программы
+
+	int **array1 = NULL;
+
+	int rows1;
+	cout << "Введите количество строк массива = ";
+	cin >> rows1;
+	int colls1;
+	cout << "Введите количество столбцов массива = ";
+	cin >> colls1;
+	cout << endl;
+
+	int id;
+	cout << "Какой столбец удалить (не превышающий область самого массива) = "; // удаление столбца в массиве
+	cin >> id;
+	cout << endl;
+
+	array1 = give_Memory_Calloc(array1, rows1, colls1); // выделение динамической памяти для массива
+	array1 = addRow(array1, rows1, colls1, id); // удаление выше указанного столбца
+	print_array(array1, rows1, colls1 - 1, 'B'); // вывод на печать массива с удалённым столбцом
+	cout << endl;
+
+	free_Memory(array1, rows1); // освобождения памяти от массива
+
+	return 0;
+}
+
+void print_array(int **a, int rows, int colls, char simvol) // функция печати массива
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < colls; j++)
+			cout << simvol << "[" << i << "][" << j << "] = " << a[i][j] << "\t";
+		cout << endl;
+	}
+}
+
+void init_array(int **a, int rows, int colls) // функция инициализации массива
+{
+	for (int i = 0; i < rows; i++)
+	for (int j = 0; j < colls; j++)
+		a[i][j] = rand() % 25 - 10;
+}
+
+int **free_Memory(int **a, int rows) // функция освобождения памяти от массива
+{
+	for (int i = 0; i < rows; i++)
+		free(a[i]);
+	free(a);
+
+	return a = NULL;
+}
+
+int **give_Memory_Calloc(int **a, int rows, int colls) // функция заполнение массива нулями
+{
+	a = (int**)calloc(rows, sizeof(int*));
+
+	for (int i = 0; i < rows; i++)
+		a[i] = (int*)calloc(colls, sizeof(int));
+
+	return a;
+}
+
+int **addRow(int **a1, int rows1, int colls1, int id) // функция удаление столбца в указанной позиции
+{
+	int **array = NULL;
+	array = give_Memory_Calloc(array, rows1, colls1 - 1);
+
+	init_array(a1, rows1, colls1);
+	print_array(a1, rows1, colls1, 'A');
+	cout << endl << endl;
+
+	for (int i = 0; i < id; i++)
+	for (int j = 0; j < colls1; j++)
+		array[j][i] = a1[j][i];
+
+	for (int i = id; i < rows1; i++)
+	for (int j = 0; j < colls1; j++)
+		array[j][i] = a1[j][i + 1];
+
+	return array;
+}
