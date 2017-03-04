@@ -21,10 +21,12 @@ int main() // динамическая память
 	A = give_memory(A, size);
 
 	init_array(A, size);
+	cout << "Исходный массив:\n";
 	print_array(A, size, 'A');
 	cout << endl;
 
 	quickSort(A, size - 1);
+	cout << "Отсортированный массив с помощью QuickSort:\n";
 	print_array(A, size, 'B');
 	cout << endl;
 
@@ -78,8 +80,7 @@ void quickSort(int* A, int size) // быстрая сотрировка
 			i++;
 			j--;
 		}
-	}
-	while (i <= j);
+	} while (i <= j);
 	if (j > 0)quickSort(A, j);
 	if (size > i)quickSort(A + i, size - i);
 }
