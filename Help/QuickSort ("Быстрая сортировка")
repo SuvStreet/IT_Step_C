@@ -1,0 +1,85 @@
+#include<iostream>
+#include<ctime>
+
+using namespace std;
+
+int* give_memory(int*, int);
+int* free_memory(int*);
+void init_array(int*, int);
+void print_array(int*, int, char);
+void quickSort(int*, int);
+
+int main() // динамическая память
+{
+	setlocale(LC_ALL, "Russian");
+	srand((unsigned)time(0));
+	int* A = NULL, size;
+	cout << "Введите размер массива = ";
+	cin >> size;
+	cout << endl;
+
+	A = give_memory(A, size);
+
+	init_array(A, size);
+	print_array(A, size, 'A');
+	cout << endl;
+
+	quickSort(A, size - 1);
+	print_array(A, size, 'B');
+	cout << endl;
+
+	A = free_memory(A);
+	return 0;
+}
+
+int* give_memory(int *A, int size) // заполнение памяти
+{
+	A = (int*)malloc(size * sizeof(int));
+	return A;
+}
+
+int* free_memory(int* A) // освобождение памяти
+{
+	free(A);
+	A = NULL;
+	return A;
+}
+
+void init_array(int* A, int size) // Функция инициализации динамического массива
+{
+	for (int *i = A; i < A + size; i++)
+	{
+		*i = rand() % 100;
+	}
+}
+
+void print_array(int* A, int size, char simvol) // Функция печати динамического массива
+{
+	for (int i = 0; i < size; i++)
+	{
+		cout << simvol << "[" << i << "] = " << *(A + i) << "\n";
+	}
+}
+
+void quickSort(int* A, int size) // быстрая сотрировка
+{
+	int i = 0, j = size;
+	int temp, p;
+	p = A[size / 2];
+	do
+	{
+		while (A[i] < p)i++;
+		while (A[j] > p)j--;
+		if (i <= j)
+		{
+			temp = A[i];
+			A[i] = A[j];
+			A[j] = temp;
+			i++;
+			j--;
+		}
+	}
+	while (i <= j);
+	if (j > 0)quickSort(A, j);
+	if (size > i)quickSort(A + i, size - i);
+}
