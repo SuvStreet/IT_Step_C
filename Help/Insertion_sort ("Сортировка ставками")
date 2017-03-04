@@ -9,7 +9,7 @@ void init_array(int*, int);
 void print_array(int*, int, char);
 void insertion_sort(int*, int);
 
-int main() // динамическая память
+int main()
 {
 	setlocale(LC_ALL, "Russian");
 	srand((unsigned)time(0));
