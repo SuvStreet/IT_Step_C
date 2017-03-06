@@ -18,7 +18,7 @@ int main()
 
 	setlocale(LC_ALL, "Russian"); // т.к. "setlocale(LC_ALL, ".866")" пепребивает "setlocale(LC_ALL, "Russian");" пишем вновь что бы на консоль выводил русский язык
 	cout << "Какой знак препинания вы хотите подсчитать?: ";
-	cin >> x;
+	x = cin.get(); // корректно будет считать пробел, как за символ
 	cout << endl;
 
 	int counter = 0;
