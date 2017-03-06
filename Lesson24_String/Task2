@@ -1,0 +1,38 @@
+// Написать программу, которая заменяет все символы точки «.» в строке, введенной пользователем, на символы восклицательного знака «!».
+
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+
+	char str[100], x, a;
+
+	cout << "Введите предложение со знаками препинания: ";
+	setlocale(LC_ALL, ".866"); // корректно прочесть русские символы с клавиатуры
+	cin.getline(str, 100);
+	cout << endl;
+
+	setlocale(LC_ALL, "Russian"); // т.к. "setlocale(LC_ALL, ".866")" пепребивает "setlocale(LC_ALL, "Russian");" пишем вновь что бы на консоль выводил русский язык
+	cout << "Какой знак препинания вы хотите заменить: ";
+	cin >> x;
+	cout << endl;
+
+	cout << "На какой знак препинания вы хотите заменить '" << x <<"' : ";
+	cin >> a;
+	cout << endl;
+
+	for (char *dot = strchr(str, x); dot != NULL; dot = strchr(dot+1, x)) // демонстрация работы функции strchr
+	{
+		*dot = a;
+	}
+
+	cout << "Ваше изменённое предложение: ";
+	setlocale(LC_ALL, ".866"); 
+	cout << str << "\n\n";
+
+	return 0;
+}
