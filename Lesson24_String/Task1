@@ -1,0 +1,29 @@
+// Написать функцию, которая вычисляет длину строки, проиллюстрировать примером ее работу.
+
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+
+	char str[100];
+	cout << "Введите строку: ";
+	cin.getline(str, 100);
+	cout << endl;
+
+	int counter = 0;
+	for (char *string = str; *string != '\0'; string++)
+	{
+		counter++;
+	}
+	cout << "Длина вашей строки используя свой цикл= " << counter << "\n\n";
+
+	strlen(str);
+
+	cout << "Длина вашей строки используя встроенную библиотеку = " << strlen(str) << "\n\n";
+
+	return 0;
+}
