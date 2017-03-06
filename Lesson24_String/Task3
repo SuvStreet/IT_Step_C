@@ -1,0 +1,37 @@
+// Пользователь вводит строку символов и искомый символ, посчитать сколько раз он встречается в строке.
+
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+
+	char str[100], x;
+
+	cout << "Введите строку символов: ";
+	setlocale(LC_ALL, ".866"); // корректно прочесть русские символы с клавиатуры
+	cin.getline(str, 100);
+	cout << endl;
+
+	setlocale(LC_ALL, "Russian"); // т.к. "setlocale(LC_ALL, ".866")" пепребивает "setlocale(LC_ALL, "Russian");" пишем вновь что бы на консоль выводил русский язык
+	cout << "Какой знак препинания вы хотите подсчитать?: ";
+	cin >> x;
+	cout << endl;
+
+	int counter = 0;
+	for (char *simvol = strchr(str, x); simvol != NULL; simvol = strchr(simvol + 1, x)) // демонстрация работы функции strchr
+	{
+		counter++;
+	}
+
+	cout << "В ваше строке, символ '" << x << "' встречается = ";
+	setlocale(LC_ALL, ".866"); 
+	cout << counter;
+	setlocale(LC_ALL, "Russian");
+	cout << " раз.\n\n";
+
+	return 0;
+}
