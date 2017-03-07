@@ -1,0 +1,68 @@
+// В строке найти частоты всех двухбуквенных сочетаний и вывести.
+// Например: Ехали ли вы, да, да, да. Результат: ли - 1 вы - 1 да - 3
+
+#define _CRT_SECURE_NO_WARNINGS // отменяет замечания компилятора за использование устаревших С-ишных функций
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	char str[100], words[10][3], *s;
+	char delim[] = " .,!?";
+	cout << "Ведите строку: ";
+	setlocale(LC_ALL, ".866");
+	cin.getline(str, 100);
+	cout << endl;
+
+	s = str;
+	s = strtok(s, delim);
+	int i = 0;
+
+	while (s != NULL)
+	{
+		if (strlen(s) == 2)
+		{
+			strcpy(words[i], s);
+			i++;
+		}
+		s = strtok(0, delim);
+	}
+	int size = i;
+
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = size - 1; j > i; j--)
+		{
+			if (strcmp(words[j], words[j - 1]) < 0)
+			{
+				swap(words[j], words[j - 1]);
+			}
+		}
+	}
+
+	int counter = 1;
+	for (int i = 0; i < size; i++)
+	{
+		if (strcmp(words[i], words[i + 1]) == 0)
+		{
+			counter++;
+		}
+		else
+		{
+			setlocale(LC_ALL, "Russian");
+			cout << "Двухбуквенное сочетание '";
+			setlocale(LC_ALL, ".866");
+			cout << words[i];
+			setlocale(LC_ALL, "Russian");
+			cout << "' в вашем предложении встречается = ";
+			setlocale(LC_ALL, "Russian");
+			cout << counter << " раз(-а)\n";
+			counter = 1;
+		}
+	}
+	cout << endl;
+	return 0;
+}
