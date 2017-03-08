@@ -1,0 +1,61 @@
+// Создать копию строки и «перевернуть» в строке все слова (например: «Жили были дед и баба» - «илиЖ илыб дед и абаб»).
+
+#include <cstring>
+#include <iostream>
+
+using namespace std;
+
+void reverseSTR(char* , int);
+void reverseWord(char*, const char*);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << "Праграмма создаёт копию строки и «переворачиват» в строке все слова.\n\n";
+	const char* delim = " ,.:;!?";
+	char str[256];
+	cout << "Введите предлоджение:				";
+	setlocale(LC_ALL, ".866");
+	cin.getline(str, sizeof(str));
+	reverseWord(str, delim);
+	setlocale(LC_ALL, "Russian");
+	cout << "Ваше предложение с перевёрнутыми в ней словами:	";
+	setlocale(LC_ALL, ".866");
+	cout << str << "\n\n";
+}
+
+void reverseSTR(char* str, int n) // переворачиваем слово побуквенно
+{
+	char* str2 = str + n - 1;
+
+	while (str < str2)
+	{
+		char t = *str;
+		*str = *str2;
+		*str2 = t;
+
+		++str;
+		--str2;
+	}
+}
+
+void reverseWord(char* str, const char* delim) // пересчитываем символы в одном слове и менуем знаки препинания и пробелы
+{
+	while (*str)
+	{
+		if (strchr(delim, *str))
+		{
+			do ++str;
+			while (*str && strchr(delim, *str));
+		}
+
+		else
+		{
+			int n = 0;
+			do ++n;
+			while (str[n] && !strchr(delim, str[n]));
+			reverseSTR(str, n);
+			str += n;
+		}
+	}
+}
