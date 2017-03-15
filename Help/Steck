@@ -1,0 +1,66 @@
+// Правильно ли раставленны скобки в строке
+
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+const int size = 20;
+struct LIFO // структура данных
+{
+	char stack[size];
+	int top;
+};
+
+void push(LIFO* st, char ch) // добавление элементов в стек
+{
+	if (st->top == size)
+	{
+		cout << "Steck is overflowed\n"; // стек переполнен
+		return;
+	}
+	st->stack[st->top] = ch;
+	st->top++;
+}
+
+char pop(LIFO* st) // взятие элементов из стека
+{
+	if (st->top == 0)
+	{
+		cout << "Steck is empty\n"; // стек пустой
+		return 0;
+	}
+	st->top--;
+	return st->stack[st->top];
+}
+
+bool check(char* str)
+{
+	bool flag = true;
+	LIFO st;
+	st.top = 0;
+	int i = 0;
+	while (str[i])
+	{
+		if (str[i] == '(') push(&st, str[i]);
+		else if (str[i] == ')')
+		{
+			if (st.top != 0) pop(&st);
+			else flag = false;
+		}
+		i++;
+	}
+	if (st.top != 0) flag = false;
+	return flag;
+}
+
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	char str[1000];
+	cout << "Введите строку:  ";
+	cin.getline(str, 1000);
+	cout << boolalpha << check(str) << endl << endl;
+	return 0;
+}
