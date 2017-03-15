@@ -5,31 +5,25 @@
 #include<cstring>
 
 using namespace std;
-bool isrushletter(char c){
-	if (c >= 'А'&&c <= 'я') return true;
-	else return false;
-}
 
 int main()
 {
 	setlocale(LC_ALL, "Russian");
 	char str[1000];
 	cout << "Введите строку:  ";
-	setlocale(LC_ALL, ".866");
 	cin.getline(str, 1000);
 	int bukva = 0;
 	int cifra = 0;
 	int simvol = 0;
 	
-	setlocale(LC_ALL, ".866");
 	for (int i = 0; str[i] != '\0'; i++)
 	{
 		if (isalpha(str[i]))bukva++;
 		else if (isdigit(str[i]))cifra++;
-		else if (isrushletter(str[i]))bukva++;
 		else simvol++;
 	}
-	setlocale(LC_ALL, "Russian");
-	cout << "\nКоличество букв в вашей строке: " << bukva << "\nКоличество цифр в вашей строке: " << cifra << "\nКоличество символов в вашей строке ( ,.-!:; и т.д.): " << simvol << endl << endl;
+
+	cout << "\nКоличество букв в вашей строке: " << bukva << "\nКоличество цифр в вашей строке: "\
+		<< cifra << "\nКоличество символов в вашей строке ( ,.-!:; и т.д.): " << simvol << endl << endl;
 	return 0;
 }
