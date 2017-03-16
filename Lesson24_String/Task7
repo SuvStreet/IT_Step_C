@@ -1,3 +1,5 @@
+// Отсортировать слова в строке пузырьковой сортировкой.
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 #include<cstring>
@@ -19,9 +21,9 @@ int main()
 
 	while (s != NULL)
 	{
-			strcpy(words[i], s);
-			i++;
-			s = strtok(0, delim);
+		strcpy(words[i], s);
+		i++;
+		s = strtok(0, delim);
 	}
 	int size = i;
 
