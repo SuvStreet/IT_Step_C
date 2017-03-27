@@ -9,49 +9,49 @@
 
 using namespace std;
 
-struct Node
+struct Node // создание узла очереди
 {
-	int data;
-	Node* next;
+	int data; // данные которые хранятся в узле
+	Node* next; // указатель на следующий узел
 };
 
-struct FIFO // структура данных
+struct FIFO // объявление очереди
 {
-	Node* head; // голова
-	Node* tail; // хвост
+	Node* head; // указатель на голову
+	Node* tail; // указатель на хвост
 };
 
-void init(FIFO* q)
+void init(FIFO* q) // инициализация очереди
 {
-	q->head = NULL; // если голова пуста ссылаемся на нуль
-	q->tail = NULL;
+	q->head = NULL; // голова пуста ссылаемся на нуль
+	q->tail = NULL; // хвост пуст ссылаемся на нуль
 }
 
-FIFO push_back(FIFO que, int value) // добавление элементов в очередь
+FIFO push_back(FIFO que, int value) // добовляем элемент в очередь
 {
-	Node* cur = (Node*)malloc(sizeof(Node)); // создаём новый узел
-	cur->data = value;
-	cur->next = NULL;
-	if (que.tail)
-		que.tail->next = cur;
-	que.tail = cur;
-	if (que.head == NULL)
-		que.head = que.tail;
+	Node* cur = (Node*)malloc(sizeof(Node)); // создаёт узел
+	cur->data = value; // сохраняем данные в новый узел
+	cur->next = NULL; // задаём указатель
+	if (que.tail) // если есть элементы в очереди
+		que.tail->next = cur; // переместили указатель хвоста с NULL на новый элемент cur
+	que.tail = cur; // изменили хвост очереди на добавленный элемент
+	if (que.head == NULL) // если в очереди ничего не было
+		que.head = que.tail; // то изменяем и голову очереди
 	return que;
 }
 
-int pop_front(FIFO* que) // взятие элементов из очереди
+int pop_front(FIFO* que) // удаление элементов из очереди
 {
 	int temp;
-	Node* cur = que->head;
-	if (que->head == NULL)
+	Node* cur = que->head; // создаём копию головы очереди
+	if (que->head == NULL) // если очередь пуста выходим из функции
 	{
 		//cout << "Queue is empty\n"; // очередь пуста
 		return 0;
 	}
-	que->head = cur->next;
-	temp = cur->data;
-	free(cur);
+	que->head = cur->next; // перемещение головы на следующий элемент
+	temp = cur->data; // копируем данные из головы в переменную temp
+	free(cur); // удаляем узел
 	return temp;
 }
 
