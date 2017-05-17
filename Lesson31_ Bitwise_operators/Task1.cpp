@@ -9,16 +9,16 @@ int main()
 	int a, b;
 	cout << "Введите числа через пробел: ";
 	cin >> a >> b;
-	cout << "*/+-";
+	cout << "Ведите операцию над ними */+-: ";
 	char symb;
 	cin >> symb;
 	int result;
 	switch (symb)
 	{
-	case '*': result = a*b; break;
-	case '/': result = a/b; break;
-	case '+': result = a+b; break;
-	case '-': result = a-b; break;
+	case '*': result = a * b; break;
+	case '/': result = a / b; break;
+	case '+': result = a + b; break;
+	case '-': result = a - b; break;
 	}
 	for (int i = 31; i < 0; --i)
 	{
@@ -27,7 +27,7 @@ int main()
 			cout << " ";
 	}
 	int number;
-	cout << "\nВведите номер байта (0 - 3): ";
+	cout << "Введите номер байта (0 - 3): ";
 	cin >> number;
 	int new_result = ((255 << (3 - number) * 8)&result) >> ((3 - number) * 8);
 	// (3 - number) * 8) - выбор на сколько сдвинуть 255 (0-8-16-24)
@@ -35,10 +35,13 @@ int main()
 	// ((255 << (3 - number) * 8)&result) - к полученому байту применяем битовое & для получения заданного байта
 	// >> ((3 - number) * 8) - сдвиг обратно на ((0-8-16-24)битиков)
 
+	cout << endl;
+
 	for (int i = 7; i >= 0; --i)
 	{
 		cout << ((new_result >> i) & 1);
 	}
 
+	cout << endl << endl;
 	return 0;
 }
